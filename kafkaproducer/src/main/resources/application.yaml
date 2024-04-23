@@ -9,3 +9,6 @@ topics:
   payment:
     request:
       topic: "payment.request.topic.v1"
+  fee:
+    storage:
+      topic: "fee.storage.topic.v1"

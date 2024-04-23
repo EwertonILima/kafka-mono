@@ -14,7 +14,9 @@ import org.springframework.kafka.core.ProducerFactory
 class KafkaProducerConfig(
     private val kafkaProperties: KafkaProperties,
     @Value("\${topics.payment.request.topic}")
-    private val paymentRequestTopic: String
+    private val paymentRequestTopic: String,
+    @Value("\${topics.fee.storage.topic}")
+    private val feesStorageTopic: String
 ) {
 
     @Bean
@@ -32,6 +34,15 @@ class KafkaProducerConfig(
     fun paymentRequestTopicBuilder(): NewTopic {
         return TopicBuilder
             .name(paymentRequestTopic)
+            .partitions(1)
+            .replicas(1)
+            .build()
+    }
+
+    @Bean
+    fun feesStorageTopicBuilder(): NewTopic {
+        return TopicBuilder
+            .name(feesStorageTopic)
             .partitions(1)
             .replicas(1)
             .build()
